@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "768080248561",
+    "firebase_url": "https://hirebuilding.firebaseio.com",
+    "project_id": "hirebuilding",
+    "storage_bucket": "hirebuilding.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768080248561:android:1c7ff9a7b66ab6b0",
+        "android_client_info": {
+          "package_name": "id.ac.pnj.hirebuilding.hiding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768080248561-acf288v2k29cjm17qv7l07o9v48djg9h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.ac.pnj.hirebuilding.hiding",
+            "certificate_hash": "e71d450cd4615b42e1349fdbe83997b0c9b11b9e"
+          }
+        },
+        {
+          "client_id": "768080248561-4smlccmidmbv58hduittfe0pjjika9sj.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "768080248561-4smlccmidmbv58hduittfe0pjjika9sj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXwX-m-99NHScrH9ZdQg1nO-dEM1LW1Mc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768080248561-4smlccmidmbv58hduittfe0pjjika9sj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

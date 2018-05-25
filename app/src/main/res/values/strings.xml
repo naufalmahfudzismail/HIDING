@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">hiding</string>
+    <string name="profile">Profile</string>
+    <string name="hire_building">Hire Building</string>
+    <string name="nama_tempat_lokasi">Nama tempat, Lokasi</string>
+    <string name="open" />
+    <string name="close" />
+    <string name="nama">Nama</string>
+    <string name="email">Email</string>
+    <string name="alamat">Alamat</string>
+    <string name="nomor_telepon">Nomor Telepon</string>
+    <string name="detail">Detail</string>
+    <string name="marker">marker</string>
+    <string name="pesan_sekarang">Pesan Sekarang</string>
+    <string name="tersedia">Tersedia</string>
+    <string name="harga">Harga</string>
+    <string name="kontak">Kontak</string>
+    <string name="fasilitas">Fasilitas</string>
+    <string name="lokasi">Lokasi</string>
+    <string name="kapasitas">Kapasitas</string>
+    <string name="name">Name</string>
+    <string name="remarks">Remarks</string>
+</resources>
