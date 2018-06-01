@@ -33,9 +33,9 @@
                 android:scaleType="centerCrop" />
 
             <Button
-                android:textColor="#ff000d"
+                android:textColor="#00ff66"
                 android:id="@+id/btn_set_favorite"
-                android:background="@drawable/btn_border"
+                android:background="#6fa8dc"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_alignParentBottom="true"

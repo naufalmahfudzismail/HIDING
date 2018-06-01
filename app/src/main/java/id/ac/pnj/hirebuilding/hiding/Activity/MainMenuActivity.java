@@ -1,5 +1,6 @@
 package id.ac.pnj.hirebuilding.hiding.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,7 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,11 +25,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import id.ac.pnj.hirebuilding.hiding.Adapter.CardRuanganAdapter;
-import id.ac.pnj.hirebuilding.hiding.Class.DataRuangan;
+import id.ac.pnj.hirebuilding.hiding.Class.Data;
 import id.ac.pnj.hirebuilding.hiding.Class.Ruangan;
 import id.ac.pnj.hirebuilding.hiding.R;
 
-public class MainMenuActivity extends AppCompatActivity
+public class MainMenuActivity extends AppCompatActivity implements View.OnClickListener
 {
 
 
@@ -33,6 +37,7 @@ public class MainMenuActivity extends AppCompatActivity
 	ActionBarDrawerToggle toggle;
 	private ArrayList<Ruangan> mRoom = new ArrayList<>();
 	private CardRuanganAdapter cardViewRuanganAdapter;
+	private Button btnLogOut;
 
 
 	@Override
@@ -61,6 +66,8 @@ public class MainMenuActivity extends AppCompatActivity
 
 	private void initNavigation()
 	{
+		btnLogOut = findViewById(R.id.log_out);
+		btnLogOut.setOnClickListener(this);
 		DrawerLayout draw = (DrawerLayout) findViewById(R.id.Drawer_mainmenu);
 	    toggle = new ActionBarDrawerToggle(this,draw,R.string.open,R.string.close);
 		draw.addDrawerListener(toggle);
@@ -68,19 +75,28 @@ public class MainMenuActivity extends AppCompatActivity
 		getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_akun_profile);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
 	}
 
 	private void RecyclerCardRuangan()
 	{
-		//ArrayList<Ruangan> _list = new ArrayList<Ruangan>(DataRuangan.getListData());
 		RecyclerView rvCategory = (RecyclerView) findViewById(R.id.rv_ruangan_card);
 		rvCategory.setLayoutManager(new GridLayoutManager(this,2));
 		cardViewRuanganAdapter = new CardRuanganAdapter(this);
 		cardViewRuanganAdapter.set_listRuangan(mRoom);
 		rvCategory.setAdapter(cardViewRuanganAdapter);
-		DataRuangan.getDataFromDatabase(cardViewRuanganAdapter, mRoom, TAG);
+		Data.getDataFromDatabase(cardViewRuanganAdapter, mRoom, TAG);
 	}
 
 
+	@Override
+	public void onClick(View v)
+	{
+		if ( v.getId() == R.id.log_out)
+		{
+			FirebaseAuth.getInstance().signOut();
+			Intent intent = new Intent ( MainMenuActivity.this, LoginActivity.class);
+			startActivity(intent);
+			finish();
+		}
+	}
 }

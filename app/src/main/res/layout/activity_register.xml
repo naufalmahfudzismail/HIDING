@@ -1,9 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.RegisterActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#6fa8dc"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/circle"
+                android:padding="10dp"
+                android:src="@drawable/icon_register" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/register"
+                android:textColor="#fff"
+                android:textSize="22sp"
+
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/linearLayout1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-10dp"
+            android:rotation="45"
+            android:src="@drawable/square" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp">
+
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:id="@+id/view_usericon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="#6fa8dc"
+                    android:padding="8dp"
+                    android:src="@drawable/icon_profile" />
+
+                <EditText
+                    android:id="@+id/edit_nama_registrasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/view_usericon"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@id/view_usericon"
+                    android:background="#dadada"
+                    android:hint="  Name"
+                    android:imeOptions="actionNext" />
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/edit_nama_registrasi"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:id="@+id/view_email"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="#6fa8dc"
+                        android:padding="8dp"
+                        android:src="@drawable/icon_email" />
+
+                    <EditText
+                        android:id="@+id/edit_email_registrasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/view_email"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@id/view_email"
+                        android:background="#dadada"
+                        android:hint="  Email"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1" />
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/edit_email_registrasi"
+                        android:layout_marginTop="20dp">
+
+                        <ImageView
+                            android:id="@+id/view_alamat"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="#6fa8dc"
+                            android:padding="8dp"
+                            android:src="@drawable/icon_location" />
+
+                        <EditText
+                            android:id="@+id/edit_alamat_registrasi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/view_alamat"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@id/view_alamat"
+                            android:background="#dadada"
+                            android:hint="  Alamat"
+                            android:imeOptions="actionNext"
+                            android:inputType="textLongMessage"
+                            android:maxLines="2" />
+
+                        <RelativeLayout
+                            android:id="@+id/relativeLayout5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/edit_alamat_registrasi"
+                            android:layout_marginTop="20dp">
+
+                            <ImageView
+                                android:id="@+id/view_telpon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="#6fa8dc"
+                                android:padding="8dp"
+                                android:src="@drawable/icon_telpon" />
+
+                            <EditText
+                                android:id="@+id/edit_telpon_regiatrasi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/view_telpon"
+                                android:layout_alignParentTop="true"
+                                android:layout_toRightOf="@id/view_telpon"
+                                android:background="#dadada"
+                                android:hint="  No. Telpon"
+                                android:imeOptions="actionNext"
+                                android:inputType="number" />
+
+                            <RelativeLayout
+                                android:id="@+id/relativeLayout6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/edit_telpon_regiatrasi"
+                                android:layout_marginTop="20dp">
+
+                                <ImageView
+                                    android:id="@+id/view_password"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:background="#6fa8dc"
+                                    android:padding="8dp"
+                                    android:src="@drawable/icon_lock_password" />
+
+                                <EditText
+                                    android:id="@+id/edit_password_registrasi"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/view_password"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_toEndOf="@id/view_password"
+                                    android:background="#dadada"
+                                    android:hint=" Password"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="textPassword" />
+
+                                <RelativeLayout
+                                    android:id="@+id/relativeLayout7"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/edit_password_registrasi"
+                                    android:layout_marginTop="20dp">
+
+                                    <ImageView
+                                        android:id="@+id/view_umur"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:background="#6fa8dc"
+                                        android:padding="8dp"
+                                        android:src="@drawable/icon_umur" />
+
+                                    <EditText
+                                        android:id="@+id/edit_umur_registrasi"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignBottom="@+id/view_umur"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_toRightOf="@id/view_umur"
+                                        android:background="#dadada"
+                                        android:hint=" Umur"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="number" />
+
+                                    <Button
+                                        android:id="@+id/btnRegister"
+                                        android:layout_width="200dp"
+                                        android:layout_height="35dp"
+                                        android:layout_below="@id/edit_umur_registrasi"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="20dp"
+                                        android:background="@drawable/background_button_register"
+                                        android:foregroundGravity="center"
+                                        android:gravity="center"
+                                        android:text="Register"
+                                        android:textAlignment="center"
+                                        android:textColor="#fff"
+                                        android:textSize="15sp" />
+                                </RelativeLayout>
+                            </RelativeLayout>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+            <ProgressBar
+                android:id="@+id/progress_regis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

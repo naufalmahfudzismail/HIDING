@@ -1,56 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainmenu_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/mainmenu_main_layout"
+    android:background="#bbd4ca"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:background="#bbd4ca"
     tools:context=".Activity.MainMenuActivity">
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/MainMenu_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize">
-        <LinearLayout
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/MainMenu_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <RelativeLayout
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_gravity="center"
-                android:layout_width="250dp"
-                android:layout_height="30dp"
-                android:background="@drawable/white_border"
-                tools:ignore="UselessParent">
+            android:layout_height="?actionBarSize">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="250dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/white_border"
+                    tools:ignore="UselessParent">
+
+                    <Button
+                        android:id="@+id/ic_magnify"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/ic_search" />
+
+                    <EditText
+                        android:id="@+id/input_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/ic_magnify"
+                        android:background="@null"
+                        android:hint="@string/nama_tempat_lokasi"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:maxHeight="30dp"
+                        android:textColor="#000"
+                        android:textSize="14sp"
+                        tools:ignore="SmallSp" />
+
+
+                </RelativeLayout>
+
                 <Button
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:id="@+id/ic_magnify"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/ic_search"/>
-                <EditText
-                    android:maxHeight="30dp"
-                    android:layout_width="match_parent"
-                    android:layout_toEndOf ="@+id/ic_magnify"
-                    android:layout_centerVertical="true"
-                    android:textSize="14sp"
-                    android:textColor="#000"
-                    android:id="@+id/input_search"
-                    android:background="@null"
-                    android:hint="@string/nama_tempat_lokasi"
-                    android:imeOptions="actionSearch"
-                    android:layout_height="30dp"
-                    android:inputType="text"
-                    tools:ignore="SmallSp" />
-            </RelativeLayout>
-        </LinearLayout>
-    </android.support.v7.widget.Toolbar>
+                    android:id="@+id/log_out"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="log out" />
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.DrawerLayout
@@ -63,94 +78,110 @@
         tools:openDrawer="start">
         <!-- Navigation Profile -->
         <android.support.design.widget.NavigationView
-            android:background="#e7edaf"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:background="#e0eae7"
             android:fitsSystemWindows="true"
             android:paddingTop="?attr/actionBarSize">
+
             <LinearLayout
-                android:layout_gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
                 android:orientation="vertical">
-                <ImageView
-                    android:layout_marginTop="70dp"
-                    android:layout_marginStart="60dp"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:background="@drawable/ic_akun_profile"
-                    android:contentDescription="@string/profile"
-                     />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gradient">
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/ic_akun_profile"
+                        android:contentDescription="@string/profile" />
+                </RelativeLayout>
+
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="30dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:text="@string/nama"
-                    android:fontFamily="Roboto"/>
-                <View
-                    android:background="#000000"
-                    android:layout_margin="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-                <TextView
-                    android:layout_marginStart="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:text="@string/email"
                     android:fontFamily="Roboto"
-                    />
+                    android:text="@string/nama"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <View
-                    android:background="#000000"
-                    android:layout_margin="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp"
+                    android:layout_margin="16dp"
+                    android:background="#000000" />
+
                 <TextView
-                    android:layout_marginStart="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="Roboto"
+                    android:text="@string/email"
                     android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="16dp"
+                    android:background="#000000" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="Roboto"
                     android:text="@string/alamat"
-                    android:fontFamily="Roboto"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <View
-                    android:background="#000000"
-                    android:layout_margin="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp"
+                    android:layout_margin="16dp"
+                    android:background="#000000" />
+
                 <TextView
-                    android:layout_marginStart="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="Roboto"
                     android:text="@string/nomor_telepon"
-                    android:fontFamily="Roboto"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <View
-                    android:background="#000000"
-                    android:layout_margin="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp"
+                    android:layout_margin="16dp"
+                    android:background="#000000" />
             </LinearLayout>
         </android.support.design.widget.NavigationView>
+
         <LinearLayout
-            android:layout_marginTop="?actionBarSize"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="?actionBarSize"
             android:orientation="vertical">
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_ruangan_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteY="8dp"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="8dp"
-                tools:ignore="MissingConstraints">
-            </android.support.v7.widget.RecyclerView>
+                tools:layout_editor_absoluteY="8dp"></android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
     </android.support.v4.widget.DrawerLayout>

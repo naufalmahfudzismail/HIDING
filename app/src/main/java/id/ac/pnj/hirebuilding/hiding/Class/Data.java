@@ -13,10 +13,10 @@ import java.util.*;
 import id.ac.pnj.hirebuilding.hiding.Adapter.CardRuanganAdapter;
 
 
-public class DataRuangan
+public class Data
 {
 
-	public static void getDataFromDatabase(final CardRuanganAdapter adapter, final ArrayList<Ruangan> List, final String TAG)
+	public static void getDataFromDatabase(final CardRuanganAdapter adapter, final ArrayList<Ruangan> ListRuangan, final String TAG)
 	{
 		FirebaseDatabase database = FirebaseDatabase.getInstance();
 		DatabaseReference myRef = database.getReference("ruangan");
@@ -28,7 +28,7 @@ public class DataRuangan
 				for (DataSnapshot roomSnapshot : dataSnapshot.getChildren())
 				{
 					Ruangan room = roomSnapshot.getValue(Ruangan.class);
-					List.add(room);
+					ListRuangan.add(room);
 				}
 
 				adapter.notifyDataSetChanged();
