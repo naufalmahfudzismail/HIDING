@@ -82,7 +82,8 @@
                     android:layout_toEndOf="@id/view_usericon"
                     android:background="#dadada"
                     android:hint="  Name"
-                    android:imeOptions="actionNext" />
+                    android:imeOptions="actionNext"
+                    android:paddingStart="10dp" />
 
                 <RelativeLayout
                     android:id="@+id/relativeLayout3"
@@ -110,7 +111,8 @@
                         android:hint="  Email"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:paddingStart="10dp" />
 
                     <RelativeLayout
                         android:id="@+id/relativeLayout4"
@@ -138,7 +140,8 @@
                             android:hint="  Alamat"
                             android:imeOptions="actionNext"
                             android:inputType="textLongMessage"
-                            android:maxLines="2" />
+                            android:maxLines="2"
+                            android:paddingStart="10dp" />
 
                         <RelativeLayout
                             android:id="@+id/relativeLayout5"
@@ -165,7 +168,8 @@
                                 android:background="#dadada"
                                 android:hint="  No. Telpon"
                                 android:imeOptions="actionNext"
-                                android:inputType="number" />
+                                android:inputType="number"
+                                android:paddingStart="10dp" />
 
                             <RelativeLayout
                                 android:id="@+id/relativeLayout6"
@@ -192,7 +196,8 @@
                                     android:background="#dadada"
                                     android:hint=" Password"
                                     android:imeOptions="actionNext"
-                                    android:inputType="textPassword" />
+                                    android:inputType="textPassword"
+                                    android:paddingStart="10dp" />
 
                                 <RelativeLayout
                                     android:id="@+id/relativeLayout7"
@@ -219,7 +224,8 @@
                                         android:background="#dadada"
                                         android:hint=" Umur"
                                         android:imeOptions="actionNext"
-                                        android:inputType="number" />
+                                        android:inputType="number"
+                                        android:paddingStart="10dp" />
 
                                     <Button
                                         android:id="@+id/btnRegister"
@@ -241,6 +247,7 @@
                     </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
+
             <ProgressBar
                 android:id="@+id/progress_regis"
                 android:layout_width="wrap_content"

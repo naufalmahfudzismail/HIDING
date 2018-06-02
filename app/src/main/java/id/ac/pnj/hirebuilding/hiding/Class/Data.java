@@ -1,6 +1,8 @@
 package id.ac.pnj.hirebuilding.hiding.Class;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,8 +18,10 @@ import id.ac.pnj.hirebuilding.hiding.Adapter.CardRuanganAdapter;
 public class Data
 {
 
-	public static void getDataFromDatabase(final CardRuanganAdapter adapter, final ArrayList<Ruangan> ListRuangan, final String TAG)
+
+	public static void getDataRuanganFromDatabase(final CardRuanganAdapter adapter, final ArrayList<Ruangan> ListRuangan, final String TAG, final ProgressBar  progressBar)
 	{
+		progressBar.setVisibility(View.VISIBLE);
 		FirebaseDatabase database = FirebaseDatabase.getInstance();
 		DatabaseReference myRef = database.getReference("ruangan");
 		myRef.addValueEventListener(new ValueEventListener()
@@ -32,6 +36,7 @@ public class Data
 				}
 
 				adapter.notifyDataSetChanged();
+				progressBar.setVisibility(View.GONE);
 			}
 
 			@Override
@@ -42,6 +47,7 @@ public class Data
 		});
 
 	}
+
 
 }
 

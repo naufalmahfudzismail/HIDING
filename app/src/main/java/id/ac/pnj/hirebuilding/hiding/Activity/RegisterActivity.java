@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import id.ac.pnj.hirebuilding.hiding.Class.User;
@@ -61,12 +62,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 	}
 
 	@Override
-	protected void onStart() {
+	protected void onStart()
+	{
 		super.onStart();
 
-		if (authRegis.getCurrentUser() != null) {
+		if (authRegis.getCurrentUser() != null)
+		{
 
-			startActivity(new Intent(RegisterActivity.this,MainMenuActivity.class));
+			startActivity(new Intent(RegisterActivity.this, MainMenuActivity.class));
 		}
 	}
 
@@ -162,23 +165,54 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 							progress.setVisibility(View.GONE);
 							if (task.isSuccessful())
 							{
-								Toast.makeText(RegisterActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
-								startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-							}
-							else
+								sendVerificationEmail();
+
+							} else
 							{
 								Toast.makeText(RegisterActivity.this, "Pendaftaran gagal", Toast.LENGTH_LONG).show();
 							}
 						}
 					});
 
-				}
-				else
+				} else
 				{
 					Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
 
+	}
+
+	private void sendVerificationEmail()
+	{
+		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+		user.sendEmailVerification()
+				.addOnCompleteListener(new OnCompleteListener<Void>()
+				{
+					@Override
+					public void onComplete(@NonNull Task<Void> task)
+					{
+						if (task.isSuccessful())
+						{
+							// email sent
+							// after email is sent just logout the user and finish this activity
+							authRegis.signOut();
+							Toast.makeText(RegisterActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+							startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+							finish();
+						}
+						else
+						{
+							// email not sent, so display message and restart the activity or do whatever you wish to do
+
+							//restart this activity
+							overridePendingTransition(0, 0);
+							finish();
+							overridePendingTransition(0, 0);
+							startActivity(getIntent());
+
+						}
+					}
+				});
 	}
 }

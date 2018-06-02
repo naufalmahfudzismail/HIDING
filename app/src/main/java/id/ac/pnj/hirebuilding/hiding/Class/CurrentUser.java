@@ -4,7 +4,9 @@ public class CurrentUser
 {
 	public static String nama;
 	public static String email;
-	public static String telp;
-	public static String lokasi;
+	public static String no_telp;
+	public static String alamat;
 	public static String umur;
+
+
 }

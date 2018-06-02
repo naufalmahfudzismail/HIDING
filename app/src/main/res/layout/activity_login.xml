@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,7 +9,6 @@
     android:paddingLeft="18dp"
     android:paddingRight="18dp"
     android:background="@drawable/background_login_gradient">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,10 +31,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/icon_profile"
+                android:drawableStart="@drawable/icon_profile"
                 android:drawablePadding="12dp"
                 android:ems="10"
-                android:hint="Username or Email"
+                android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
@@ -72,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:padding="8dp"
-                android:text="Remember me"
+                android:text="@string/remember_me"
                 android:textColor="#fff" />
 
             <Button
@@ -110,12 +109,10 @@
         </LinearLayout>
 
     <ProgressBar
+        android:layout_centerInParent="true"
         android:id="@+id/progressBar"
         android:layout_width="12dp"
         android:layout_height="100dp"
-        android:visibility="gone"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="199dp"
-        tools:layout_editor_absoluteY="334dp" />
+        android:visibility="gone" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

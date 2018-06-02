@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import id.ac.pnj.hirebuilding.hiding.R;
 
@@ -37,24 +38,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 	@Override
 	public void onClick(View v)
 	{
-		if(v.getId() == R.id.button_login)
+		if (v.getId() == R.id.button_login)
 		{
 			String username = edtUser.getText().toString().trim();
 			final String pass = edtPass.getText().toString().trim();
 
 			if (TextUtils.isEmpty(username))
 			{
-				Toast.makeText(getApplicationContext(), "Enter email /  username address!", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "Enter Email address!", Toast.LENGTH_SHORT).show();
 				return;
 			}
 
-			if (TextUtils.isEmpty(pass) )
+			if (TextUtils.isEmpty(pass))
 			{
 				Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
 				return;
-			}
-
-			else if (pass.length() < 8)
+			} else if (pass.length() < 8)
 			{
 				Toast.makeText(getApplicationContext(), "Password harus lebih dari 8 karakter", Toast.LENGTH_SHORT).show();
 				return;
@@ -78,11 +77,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 						{
 							Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
 						}
-					} else
+					}
+					else
 					{
-						Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
-						startActivity(intent);
-						finish();
+						checkIfEmailVerified();
+
 					}
 				}
 			});
@@ -92,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 		if (v.getId() == R.id.button_register)
 		{
-			Intent intent  = new Intent(LoginActivity.this, RegisterActivity.class);
+			Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
 			startActivity(intent);
 		}
 	}
@@ -110,9 +109,55 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 		auth = FirebaseAuth.getInstance();
 
-		if (auth.getCurrentUser() != null) {
+		if (auth.getCurrentUser() != null)
+		{
 			startActivity(new Intent(LoginActivity.this, MainMenuActivity.class));
 			finish();
+		}
+	}
+
+	private void checkIfEmailVerified()
+	{
+		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+		assert user != null;
+		if (user.isEmailVerified())
+		{
+			// user is verified, so you can finish this activity or send user to activity which you want.
+			finish();
+			Toast.makeText(LoginActivity.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
+			startActivity(intent);
+			finish();
+		}
+		else
+		{
+			user.sendEmailVerification()
+					.addOnCompleteListener(new OnCompleteListener<Void>()
+					{
+						@Override
+						public void onComplete(@NonNull Task<Void> task)
+						{
+							if(task.isSuccessful())
+							{
+								Toast.makeText(LoginActivity.this, "Account are not registered, we send email verification", Toast.LENGTH_SHORT).show();
+								FirebaseAuth.getInstance().signOut();
+							}
+							else
+							{
+								//restart this activity
+								overridePendingTransition(0, 0);
+								finish();
+								overridePendingTransition(0, 0);
+								startActivity(getIntent());
+							}
+
+						}
+					});
+			// email is not verified, so just prompt the message to the user and restart this activity.
+			// NOTE: don't forget to log out the user.
+
+			//restart this activity
 		}
 	}
 }

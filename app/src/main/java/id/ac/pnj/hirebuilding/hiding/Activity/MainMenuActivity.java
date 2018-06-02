@@ -1,7 +1,12 @@
 package id.ac.pnj.hirebuilding.hiding.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,21 +30,31 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import id.ac.pnj.hirebuilding.hiding.Adapter.CardRuanganAdapter;
+import id.ac.pnj.hirebuilding.hiding.Class.CurrentUser;
 import id.ac.pnj.hirebuilding.hiding.Class.Data;
 import id.ac.pnj.hirebuilding.hiding.Class.Ruangan;
+import id.ac.pnj.hirebuilding.hiding.Class.User;
 import id.ac.pnj.hirebuilding.hiding.R;
 
-public class MainMenuActivity extends AppCompatActivity implements View.OnClickListener
+public class MainMenuActivity extends AppCompatActivity
+		implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 {
 
 
 	private static final String TAG = "MainMenuActivity";
-	ActionBarDrawerToggle toggle;
+	private ActionBarDrawerToggle toggle;
 	private ArrayList<Ruangan> mRoom = new ArrayList<>();
 	private CardRuanganAdapter cardViewRuanganAdapter;
-	private Button btnLogOut;
+	private Button btnLogOut, btn_changeProfile;
+	private ProgressBar progressBar;
+	private MenuItem menu_nama, menu_email, menu_alamat, menu_telp;
+	private NavigationView nav_profile;
+	private DrawerLayout draw;
+	private Toolbar toolbar;
+	private Menu menu;
 
 
 	@Override
@@ -46,17 +63,31 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_menu);
 
-		findViewById(R.id.mainmenu_main_layout).requestFocus();
+		findViewById(R.id.Drawer_mainmenu).requestFocus();
 
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
 		{
-			Toolbar toolbar = (Toolbar) findViewById(R.id.MainMenu_toolbar);
+			 toolbar = findViewById(R.id.MainMenu_toolbar);
 			setSupportActionBar(toolbar);
 		}
 
 		initNavigation();
+		initWidget();
+		getUserDetail();
 		RecyclerCardRuangan();
+
 	}
+
+
+	@Override
+	public void onClick(View v)
+	{
+		if (v.getId() == R.id.log_out)
+		{
+			log_out();
+		}
+	}
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
@@ -64,39 +95,130 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
 		return toggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	public boolean onNavigationItemSelected(@NonNull MenuItem item)
+	{
+		int id  = item.getItemId();
+
+		if ( id == R.id.nav_exit )
+		{
+			log_out();
+		}
+
+		else if( id == R.id.nav_change)
+		{
+
+		}
+
+		draw.closeDrawer(GravityCompat.START);
+		return true;
+	}
+
 	private void initNavigation()
 	{
-		btnLogOut = findViewById(R.id.log_out);
-		btnLogOut.setOnClickListener(this);
-		DrawerLayout draw = (DrawerLayout) findViewById(R.id.Drawer_mainmenu);
-	    toggle = new ActionBarDrawerToggle(this,draw,R.string.open,R.string.close);
+
+		draw = (DrawerLayout) findViewById(R.id.Drawer_mainmenu);
+		toggle = new ActionBarDrawerToggle
+				(this, draw,toolbar, R.string.open, R.string.close);
 		draw.addDrawerListener(toggle);
 		toggle.syncState();
+
 		getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_akun_profile);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+		NavigationView navigationView = findViewById(R.id.navigation_profile);
+		navigationView.setNavigationItemSelectedListener(this);
+		menu = navigationView.getMenu();
+	}
+
+	@Override
+	public void onBackPressed()
+	{
+		if (draw.isDrawerOpen(GravityCompat.START))
+		{
+			draw.closeDrawer(GravityCompat.START);
+		}
+		else
+		{
+			super.onBackPressed();
+		}
+	}
+
+	private void log_out()
+	{
+		FirebaseAuth.getInstance().signOut();
+		CurrentUser.nama = null;
+		CurrentUser.alamat = null;
+		CurrentUser.email = null;
+		CurrentUser.umur = null;
+		CurrentUser.no_telp = null;
+		Intent intent = new Intent(MainMenuActivity.this, LoginActivity.class);
+		startActivity(intent);
+		finish();
+	}
+
+	private void initWidget()
+	{
+		menu_nama = menu.findItem(R.id.nav_nama);
+		menu_alamat = menu.findItem(R.id.nav_alamat);
+		menu_email = menu.findItem(R.id.nav_email);
+		menu_telp = menu.findItem(R.id.nav_tlp);
+
+		progressBar = findViewById(R.id.MM_progress);
+		nav_profile = findViewById(R.id.navigation_profile);
+		btnLogOut = findViewById(R.id.log_out);
+		btnLogOut.setOnClickListener(this);
 	}
 
 	private void RecyclerCardRuangan()
 	{
 		RecyclerView rvCategory = (RecyclerView) findViewById(R.id.rv_ruangan_card);
-		rvCategory.setLayoutManager(new GridLayoutManager(this,2));
+		rvCategory.setLayoutManager(new GridLayoutManager(this, 3));
 		cardViewRuanganAdapter = new CardRuanganAdapter(this);
 		cardViewRuanganAdapter.set_listRuangan(mRoom);
 		rvCategory.setAdapter(cardViewRuanganAdapter);
-		Data.getDataFromDatabase(cardViewRuanganAdapter, mRoom, TAG);
+		Data.getDataRuanganFromDatabase(cardViewRuanganAdapter, mRoom, TAG, progressBar);
 	}
 
 
-	@Override
-	public void onClick(View v)
+	@SuppressLint("SetTextI18n")
+	private void getUserDetail()
 	{
-		if ( v.getId() == R.id.log_out)
+		progressBar.setVisibility(View.VISIBLE);
+		FirebaseDatabase database = FirebaseDatabase.getInstance();
+		DatabaseReference RetriveUser = database.getReference("Users");
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
 		{
-			FirebaseAuth.getInstance().signOut();
-			Intent intent = new Intent ( MainMenuActivity.this, LoginActivity.class);
-			startActivity(intent);
-			finish();
+			RetriveUser.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+					.addValueEventListener(new ValueEventListener()
+					{
+						@Override
+						public void onDataChange(DataSnapshot dataSnapshot)
+						{
+							User user = dataSnapshot.getValue(User.class);
+							CurrentUser.nama = user.getNama();
+							CurrentUser.alamat = user.getAlamat();
+							CurrentUser.email = user.getEmail();
+							CurrentUser.umur = user.getUmur();
+							CurrentUser.no_telp = user.getNo_telp();
+
+							menu_nama.setTitle(CurrentUser.nama);
+							menu_alamat.setTitle(CurrentUser.alamat);
+							menu_email.setTitle(CurrentUser.email);
+							menu_telp.setTitle(CurrentUser.no_telp);
+
+							progressBar.setVisibility(View.GONE);
+
+						}
+						@Override
+						public void onCancelled(DatabaseError databaseError)
+						{
+							Log.w(TAG, "onCancelled: ", databaseError.toException());
+						}
+					});
 		}
+
 	}
+
+
 }

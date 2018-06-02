@@ -61,4 +61,5 @@
     <string name="input_error_email_invalid">enter a valid email</string>
     <string name="input_umur_error">Age required</string>
     <string name="input_lokasi_error">location required</string>
+    <string name="remember_me">Remember me</string>
 </resources>

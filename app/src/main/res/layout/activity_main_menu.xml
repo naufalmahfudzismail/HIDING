@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainmenu_main_layout"
+    android:id="@+id/Drawer_mainmenu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#bbd4ca"
+    android:background="#ffffff"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
+    tools:openDrawer="start"
+    android:layout_gravity="start"
     tools:context=".Activity.MainMenuActivity">
-
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    
     <android.support.design.widget.AppBarLayout
+        android:background="@drawable/gradient_blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -55,9 +62,7 @@
                         android:textSize="14sp"
                         tools:ignore="SmallSp" />
 
-
                 </RelativeLayout>
-
                 <Button
                     android:id="@+id/log_out"
                     android:layout_width="wrap_content"
@@ -67,123 +72,35 @@
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/Drawer_mainmenu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:paddingTop="?attr/actionBarSize"
-        tools:openDrawer="start">
+   
         <!-- Navigation Profile -->
-        <android.support.design.widget.NavigationView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="#e0eae7"
-            android:fitsSystemWindows="true"
-            android:paddingTop="?attr/actionBarSize">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/gradient">
-
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginStart="60dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/ic_akun_profile"
-                        android:contentDescription="@string/profile" />
-                </RelativeLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="Roboto"
-                    android:text="@string/nama"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="16dp"
-                    android:background="#000000" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:fontFamily="Roboto"
-                    android:text="@string/email"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="16dp"
-                    android:background="#000000" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:fontFamily="Roboto"
-                    android:text="@string/alamat"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="16dp"
-                    android:background="#000000" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:fontFamily="Roboto"
-                    android:text="@string/nomor_telepon"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="16dp"
-                    android:background="#000000" />
-            </LinearLayout>
-        </android.support.design.widget.NavigationView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?actionBarSize"
-            android:orientation="vertical">
-
+    
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_ruangan_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="8dp"></android.support.v7.widget.RecyclerView>
+                tools:layout_editor_absoluteY="8dp">
+            </android.support.v7.widget.RecyclerView>
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/MM_progress"/>
+    </RelativeLayout>
 
-        </LinearLayout>
-    </android.support.v4.widget.DrawerLayout>
-</RelativeLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/draw_nav_menu"
+        app:headerLayout="@layout/nav_header_main">
+    </android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>
 
