@@ -63,6 +63,7 @@ public class MainMenuActivity extends AppCompatActivity
 		setContentView(R.layout.activity_main_menu);
 
 		findViewById(R.id.Drawer_mainmenu).requestFocus();
+		findViewById(R.id.relative_focus).requestFocus();
 
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
 		{
