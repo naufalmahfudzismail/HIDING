@@ -30,7 +30,7 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_description);
 
-		initmwidget();
+		init_widget();
 
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
 		{
@@ -58,7 +58,7 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
 				.into(mimage);
 	}
 
-	private void initmwidget()
+	private void init_widget()
 	{
 		mimage = findViewById(R.id.image_ruangan);
 		mtitle =  findViewById(R.id.title_ruangan);

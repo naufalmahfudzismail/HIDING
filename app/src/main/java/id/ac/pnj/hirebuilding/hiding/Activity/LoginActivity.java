@@ -77,8 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 						{
 							Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
 						}
-					}
-					else
+					} else
 					{
 						checkIfEmailVerified();
 
@@ -130,34 +129,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 			startActivity(intent);
 			finish();
 		}
+		else if (!user.isEmailVerified())
+		{
+
+			Toast.makeText(LoginActivity.this, "Akun belum terverifikasi, Cek Email anda untuk verifikasi", Toast.LENGTH_SHORT).show();
+			FirebaseAuth.getInstance().signOut();
+
+		}
+
 		else
 		{
-			user.sendEmailVerification()
-					.addOnCompleteListener(new OnCompleteListener<Void>()
-					{
-						@Override
-						public void onComplete(@NonNull Task<Void> task)
-						{
-							if(task.isSuccessful())
-							{
-								Toast.makeText(LoginActivity.this, "Account are not registered, we send email verification", Toast.LENGTH_SHORT).show();
-								FirebaseAuth.getInstance().signOut();
-							}
-							else
-							{
-								//restart this activity
-								overridePendingTransition(0, 0);
-								finish();
-								overridePendingTransition(0, 0);
-								startActivity(getIntent());
-							}
-
-						}
-					});
-			// email is not verified, so just prompt the message to the user and restart this activity.
-			// NOTE: don't forget to log out the user.
-
-			//restart this activity
+			Toast.makeText(LoginActivity.this, "Terjadi Error Sementara", Toast.LENGTH_SHORT).show();
 		}
+
+		// email is not verified, so just prompt the message to the user and restart this activity.
+		// NOTE: don't forget to log out the user.
+
+		//restart this activity
 	}
 }
+

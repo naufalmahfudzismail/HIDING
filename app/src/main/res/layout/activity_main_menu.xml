@@ -17,6 +17,7 @@
         android:layout_height="match_parent">
     
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:background="@drawable/gradient_blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -31,6 +32,7 @@
                 android:layout_height="match_parent">
 
                 <RelativeLayout
+                    android:layout_marginEnd="10dp"
                     android:layout_width="250dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
@@ -48,6 +50,7 @@
                         android:background="@drawable/ic_search" />
 
                     <EditText
+                        android:focusable="false"
                         android:id="@+id/input_search"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
@@ -63,20 +66,13 @@
                         tools:ignore="SmallSp" />
 
                 </RelativeLayout>
-                <Button
-                    android:id="@+id/log_out"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="log out" />
+
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-   
-        <!-- Navigation Profile -->
 
-    
             <android.support.v7.widget.RecyclerView
+                android:layout_below="@+id/app_bar"
                 android:id="@+id/rv_ruangan_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

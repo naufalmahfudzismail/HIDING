@@ -48,7 +48,6 @@ public class MainMenuActivity extends AppCompatActivity
 	private ActionBarDrawerToggle toggle;
 	private ArrayList<Ruangan> mRoom = new ArrayList<>();
 	private CardRuanganAdapter cardViewRuanganAdapter;
-	private Button btnLogOut, btn_changeProfile;
 	private ProgressBar progressBar;
 	private MenuItem menu_nama, menu_email, menu_alamat, menu_telp;
 	private NavigationView nav_profile;
@@ -57,7 +56,7 @@ public class MainMenuActivity extends AppCompatActivity
 	private Menu menu;
 
 
-	@Override
+	@Override //int main
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -78,24 +77,40 @@ public class MainMenuActivity extends AppCompatActivity
 
 	}
 
-
-	@Override
-	public void onClick(View v)
+	@Override // bikin menu samping kanan toolbar
+	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		if (v.getId() == R.id.log_out)
-		{
-			log_out();
-		}
+		// Inflate the menu; this adds items to the action bar if it is present
+		getMenuInflater().inflate(R.menu.menu, menu);
+		return true;
 	}
 
-
-	@Override
+	@Override // aksi dimana menu di pilih
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		return toggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+
+		//noinspection SimplifiableIfStatement
+		if (id == R.id.menu_filter)
+		{
+			return true;
+		}
+		if (id == R.id.menu_sort)
+		{
+			return true;
+		}
+		if (id == R.id.menu_status)
+		{
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
-	@Override
+	@Override //aksi dimana navgiasi kiri besar
 	public boolean onNavigationItemSelected(@NonNull MenuItem item)
 	{
 		int id  = item.getItemId();
@@ -114,7 +129,7 @@ public class MainMenuActivity extends AppCompatActivity
 		return true;
 	}
 
-	private void initNavigation()
+	private void initNavigation() //inisialisasi navigasi
 	{
 
 		draw = (DrawerLayout) findViewById(R.id.Drawer_mainmenu);
@@ -132,7 +147,7 @@ public class MainMenuActivity extends AppCompatActivity
 	}
 
 	@Override
-	public void onBackPressed()
+	public void onBackPressed() // aksi ketika navigasi kiri di swipe
 	{
 		if (draw.isDrawerOpen(GravityCompat.START))
 		{
@@ -144,7 +159,7 @@ public class MainMenuActivity extends AppCompatActivity
 		}
 	}
 
-	private void log_out()
+	private void log_out()   // mettho log out
 	{
 		FirebaseAuth.getInstance().signOut();
 		CurrentUser.nama = null;
@@ -157,20 +172,17 @@ public class MainMenuActivity extends AppCompatActivity
 		finish();
 	}
 
-	private void initWidget()
+	private void initWidget() //inisialisasi wiget
 	{
 		menu_nama = menu.findItem(R.id.nav_nama);
 		menu_alamat = menu.findItem(R.id.nav_alamat);
 		menu_email = menu.findItem(R.id.nav_email);
 		menu_telp = menu.findItem(R.id.nav_tlp);
-
 		progressBar = findViewById(R.id.MM_progress);
 		nav_profile = findViewById(R.id.navigation_profile);
-		btnLogOut = findViewById(R.id.log_out);
-		btnLogOut.setOnClickListener(this);
 	}
 
-	private void RecyclerCardRuangan()
+	private void RecyclerCardRuangan()  // menampilkan ruangan sesuai jumlah ruangan
 	{
 		RecyclerView rvCategory = (RecyclerView) findViewById(R.id.rv_ruangan_card);
 		rvCategory.setLayoutManager(new GridLayoutManager(this, 3));
@@ -182,7 +194,7 @@ public class MainMenuActivity extends AppCompatActivity
 
 
 	@SuppressLint("SetTextI18n")
-	private void getUserDetail()
+	private void getUserDetail()   // mengambil data user dari database
 	{
 		progressBar.setVisibility(View.VISIBLE);
 		FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -221,4 +233,9 @@ public class MainMenuActivity extends AppCompatActivity
 	}
 
 
+	@Override
+	public void onClick(View v)
+	{
+
+	}
 }
