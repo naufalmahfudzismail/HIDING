@@ -4,9 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -31,29 +34,40 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import id.ac.pnj.hirebuilding.hiding.Adapter.CardRuanganAdapter;
+import id.ac.pnj.hirebuilding.hiding.Adapter.PromosiPagerAdapter;
 import id.ac.pnj.hirebuilding.hiding.Class.CurrentUser;
 import id.ac.pnj.hirebuilding.hiding.Class.Data;
 import id.ac.pnj.hirebuilding.hiding.Class.Ruangan;
 import id.ac.pnj.hirebuilding.hiding.Class.User;
 import id.ac.pnj.hirebuilding.hiding.R;
 
+
 public class MainMenuActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 {
 
-
 	private static final String TAG = "MainMenuActivity";
-	private ActionBarDrawerToggle toggle;
+
 	private ArrayList<Ruangan> mRoom = new ArrayList<>();
-	private CardRuanganAdapter cardViewRuanganAdapter;
+	private ArrayList<String> ImageList = new ArrayList<>();
+
 	private ProgressBar progressBar;
+
 	private MenuItem menu_nama, menu_email, menu_alamat, menu_telp;
-	private NavigationView nav_profile;
 	private DrawerLayout draw;
 	private Toolbar toolbar;
 	private Menu menu;
+	private PromosiPagerAdapter PromosiPager;
+
+	int currentPage = 0;
+	Timer timer;
+	final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
+	final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
+
 
 
 	@Override //int main
@@ -67,7 +81,7 @@ public class MainMenuActivity extends AppCompatActivity
 
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
 		{
-			 toolbar = findViewById(R.id.MainMenu_toolbar);
+			toolbar = findViewById(R.id.MainMenu_toolbar);
 			setSupportActionBar(toolbar);
 		}
 
@@ -114,14 +128,12 @@ public class MainMenuActivity extends AppCompatActivity
 	@Override //aksi dimana navgiasi kiri besar
 	public boolean onNavigationItemSelected(@NonNull MenuItem item)
 	{
-		int id  = item.getItemId();
+		int id = item.getItemId();
 
-		if ( id == R.id.nav_exit )
+		if (id == R.id.nav_exit)
 		{
 			log_out();
-		}
-
-		else if( id == R.id.nav_change)
+		} else if (id == R.id.nav_change)
 		{
 
 		}
@@ -134,8 +146,8 @@ public class MainMenuActivity extends AppCompatActivity
 	{
 
 		draw = (DrawerLayout) findViewById(R.id.Drawer_mainmenu);
-		toggle = new ActionBarDrawerToggle
-				(this, draw,toolbar, R.string.open, R.string.close);
+		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle
+				(this, draw, toolbar, R.string.open, R.string.close);
 		draw.addDrawerListener(toggle);
 		toggle.syncState();
 
@@ -153,25 +165,12 @@ public class MainMenuActivity extends AppCompatActivity
 		if (draw.isDrawerOpen(GravityCompat.START))
 		{
 			draw.closeDrawer(GravityCompat.START);
-		}
-		else
+		} else
 		{
 			super.onBackPressed();
 		}
 	}
 
-	private void log_out()   // mettho log out
-	{
-		FirebaseAuth.getInstance().signOut();
-		CurrentUser.nama = null;
-		CurrentUser.alamat = null;
-		CurrentUser.email = null;
-		CurrentUser.umur = null;
-		CurrentUser.no_telp = null;
-		Intent intent = new Intent(MainMenuActivity.this, LoginActivity.class);
-		startActivity(intent);
-		finish();
-	}
 
 	private void initWidget() //inisialisasi wiget
 	{
@@ -180,17 +179,52 @@ public class MainMenuActivity extends AppCompatActivity
 		menu_email = menu.findItem(R.id.nav_email);
 		menu_telp = menu.findItem(R.id.nav_tlp);
 		progressBar = findViewById(R.id.MM_progress);
-		nav_profile = findViewById(R.id.navigation_profile);
+		NavigationView nav_profile = findViewById(R.id.navigation_profile);
+
+
+	}
+
+	private void PromotionPager() // Auto Animation change Promotion
+	{
+		final ViewPager viewPager = findViewById(R.id.promotion_pager);
+		PromosiPager = new PromosiPagerAdapter(MainMenuActivity.this, ImageList);
+		viewPager.setAdapter(PromosiPager);
+
+		final Handler handler = new Handler();
+		final Runnable Update = new Runnable()
+		{
+			public void run()
+			{
+				if (currentPage == ImageList.size() - 1)
+				{
+					currentPage = 0;
+				}
+
+				viewPager.setCurrentItem(currentPage++, true);
+			}
+		};
+
+		timer = new Timer(); // This will create a new Thread
+		timer.schedule(new TimerTask()
+		{ // task to be scheduled
+
+			@Override
+			public void run()
+			{
+				handler.post(Update);
+			}
+		}, DELAY_MS, PERIOD_MS);
 	}
 
 	private void RecyclerCardRuangan()  // menampilkan ruangan sesuai jumlah ruangan
 	{
 		RecyclerView rvCategory = (RecyclerView) findViewById(R.id.rv_ruangan_card);
 		rvCategory.setLayoutManager(new GridLayoutManager(this, 3));
-		cardViewRuanganAdapter = new CardRuanganAdapter(this);
+		CardRuanganAdapter cardViewRuanganAdapter = new CardRuanganAdapter(this);
 		cardViewRuanganAdapter.set_listRuangan(mRoom);
 		rvCategory.setAdapter(cardViewRuanganAdapter);
-		Data.getDataRuanganFromDatabase(cardViewRuanganAdapter, mRoom, TAG, progressBar);
+		PromotionPager();
+		Data.getDataRuanganFromDatabase(cardViewRuanganAdapter, mRoom, TAG, progressBar, ImageList, PromosiPager);
 	}
 
 
@@ -223,6 +257,7 @@ public class MainMenuActivity extends AppCompatActivity
 							progressBar.setVisibility(View.GONE);
 
 						}
+
 						@Override
 						public void onCancelled(DatabaseError databaseError)
 						{
@@ -239,4 +274,20 @@ public class MainMenuActivity extends AppCompatActivity
 	{
 
 	}
+
+	private void log_out()   // mettho log out
+	{
+		FirebaseAuth.getInstance().signOut();
+		CurrentUser.nama = null;
+		CurrentUser.alamat = null;
+		CurrentUser.email = null;
+		CurrentUser.umur = null;
+		CurrentUser.no_telp = null;
+		Intent intent = new Intent(MainMenuActivity.this, LoginActivity.class);
+		startActivity(intent);
+		finish();
+	}
+
+
+
 }

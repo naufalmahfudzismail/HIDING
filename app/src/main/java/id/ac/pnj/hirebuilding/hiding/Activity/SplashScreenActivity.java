@@ -6,6 +6,7 @@ import android.view.View;
 
 import id.ac.pnj.hirebuilding.hiding.R;
 
+
 public class SplashScreenActivity extends AppCompatActivity implements View.OnClickListener
 {
 

@@ -18,6 +18,7 @@ import id.ac.pnj.hirebuilding.hiding.Adapter.CardRuanganAdapter;
 import id.ac.pnj.hirebuilding.hiding.Class.Ruangan;
 import id.ac.pnj.hirebuilding.hiding.R;
 
+
 public class DescriptionActivity extends AppCompatActivity implements View.OnClickListener
 {
 	private ImageView mimage;

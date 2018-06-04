@@ -2,6 +2,7 @@ package id.ac.pnj.hirebuilding.hiding.Class;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.google.firebase.database.DataSnapshot;
@@ -13,13 +14,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.*;
 
 import id.ac.pnj.hirebuilding.hiding.Adapter.CardRuanganAdapter;
+import id.ac.pnj.hirebuilding.hiding.Adapter.PromosiPagerAdapter;
 
 
 public class Data
 {
 
 
-	public static void getDataRuanganFromDatabase(final CardRuanganAdapter adapter, final ArrayList<Ruangan> ListRuangan, final String TAG, final ProgressBar  progressBar)
+	public static void getDataRuanganFromDatabase(final CardRuanganAdapter adapter, final ArrayList<Ruangan> ListRuangan, final String TAG, final ProgressBar  progressBar, final ArrayList<String> ImageList, final PromosiPagerAdapter promote)
 	{
 		progressBar.setVisibility(View.VISIBLE);
 		FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -32,10 +34,13 @@ public class Data
 				for (DataSnapshot roomSnapshot : dataSnapshot.getChildren())
 				{
 					Ruangan room = roomSnapshot.getValue(Ruangan.class);
+					assert room != null;
+					ImageList.add(room.getgambar());
 					ListRuangan.add(room);
 				}
 
 				adapter.notifyDataSetChanged();
+				promote.notifyDataSetChanged();
 				progressBar.setVisibility(View.GONE);
 			}
 

@@ -20,9 +20,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activity.LoginActivity"
-            tools:ignore="InnerclassSeparator" >
+            tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -49,7 +50,7 @@
         <activity
             android:name=".Activity.SplashScreenActivity"
             tools:ignore="InnerclassSeparator" />
-
+        <activity android:name=".Activity.PemesananActivity"></activity>
     </application>
 
 </manifest>

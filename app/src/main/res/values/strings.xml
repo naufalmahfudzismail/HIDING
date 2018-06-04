@@ -62,4 +62,7 @@
     <string name="input_umur_error">Age required</string>
     <string name="input_lokasi_error">location required</string>
     <string name="remember_me">Remember me</string>
+    <string name="periksa_sekarang">Check Now!</string>
+    <string name="gambar_promosi">Gambar Promosi</string>
+    <string name="Discount">Discount Buka Bersama 20%</string>
 </resources>

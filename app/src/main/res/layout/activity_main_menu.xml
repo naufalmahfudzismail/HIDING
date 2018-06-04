@@ -5,91 +5,100 @@
     android:id="@+id/Drawer_mainmenu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="start"
     android:background="#ffffff"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    tools:openDrawer="start"
-    android:layout_gravity="start"
-    tools:context=".Activity.MainMenuActivity">
-    
+    tools:context=".Activity.MainMenuActivity"
+    tools:openDrawer="start">
+
     <RelativeLayout
         android:id="@+id/relative_focus"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
-        android:background="@drawable/gradient_blue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:focusableInTouchMode="true">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/MainMenu_toolbar"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize">
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_blue">
 
-            <LinearLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/MainMenu_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="?actionBarSize">
 
-                <RelativeLayout
-                    android:layout_marginEnd="10dp"
-                    android:layout_width="250dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/white_border"
-                    tools:ignore="UselessParent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                    <Button
-                        android:id="@+id/ic_magnify"
-                        android:layout_width="30dp"
+                    <RelativeLayout
+                        android:layout_width="250dp"
                         android:layout_height="30dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="10dp"
-                        android:background="@drawable/ic_search" />
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/white_border"
+                        tools:ignore="UselessParent">
 
-                    <EditText
-                        android:focusableInTouchMode="true"
-                        android:focusedByDefault="false"
-                        android:id="@+id/input_search"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/ic_magnify"
-                        android:background="@null"
-                        android:hint="@string/nama_tempat_lokasi"
-                        android:imeOptions="actionSearch"
-                        android:inputType="text"
-                        android:maxHeight="30dp"
-                        android:textColor="#000"
-                        android:textSize="14sp"
-                        tools:ignore="SmallSp" />
+                        <Button
+                            android:id="@+id/ic_magnify"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:background="@drawable/ic_search" />
 
-                </RelativeLayout>
+                        <EditText
+                            android:id="@+id/input_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/ic_magnify"
+                            android:background="@null"
+                            android:focusableInTouchMode="true"
+                            android:focusedByDefault="false"
+                            android:hint="@string/nama_tempat_lokasi"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:maxHeight="30dp"
+                            android:textColor="#000"
+                            android:textSize="14sp"
+                            tools:ignore="SmallSp" />
 
-            </LinearLayout>
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+                    </RelativeLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:layout_below="@+id/app_bar"
-                android:id="@+id/rv_ruangan_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="8dp">
-            </android.support.v7.widget.RecyclerView>
-    <ProgressBar
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/MM_progress"/>
+                </LinearLayout>
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/promotion_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_below="@id/app_bar"
+            android:layout_gravity="top">
+        </android.support.v4.view.ViewPager>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_ruangan_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/promotion_pager"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+        </android.support.v7.widget.RecyclerView>
+
+        <ProgressBar
+            android:id="@+id/MM_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView
@@ -98,8 +107,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:menu="@menu/draw_nav_menu"
-        app:headerLayout="@layout/nav_header_main">
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/draw_nav_menu">
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
